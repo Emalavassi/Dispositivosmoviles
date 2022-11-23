@@ -40,6 +40,9 @@ class UpdateLugarFragment : Fragment() {
         binding.etCorreoLugar.setText(args.lugar.correo)
         binding.etWeb.setText(args.lugar.web)
 
+        binding.btAddLugar.setOnClickListener{updateLugar()}
+        binding.btnBorrarLugar.setOnClickListener{deleteLugar()}
+
         return binding.root
     }
 
@@ -70,6 +73,8 @@ class UpdateLugarFragment : Fragment() {
         val correo= binding.etCorreoLugar.text.toString()
         val web=  binding.etWeb.text.toString()
         val lugar = Lugar(args.lugar.id,nombre,correo,web,telefono)
+        homeViewModel.deleteLugar(lugar)
+        findNavController().navigate(R.id.action_updateLugarFragment_to_nav_home)
     }
 
 }
