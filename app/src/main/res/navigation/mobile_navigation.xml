@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.dispositivosmoviles.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_addLugarFragment"
+            app:destination="@id/addLugarFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_updateLugarFragment"
+            app:destination="@id/updateLugarFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.dispositivosmoviles.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.dispositivosmoviles.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/addLugarFragment"
+        android:name="com.dispositivosmoviles.ui.home.addLugarFragment"
+        android:label="fragment_add_lugar"
+        tools:layout="@layout/fragment_add_lugar" >
+        <action
+            android:id="@+id/action_addLugarFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateLugarFragment"
+        android:name="com.dispositivosmoviles.ui.home.UpdateLugarFragment"
+        android:label="fragment_update_lugar"
+        tools:layout="@layout/fragment_update_lugar" >
+        <action
+            android:id="@+id/action_updateLugarFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <argument android:name="lugar" app:argType="com.dispositivosmoviles.model.Lugar" />
+    </fragment>
+</navigation>

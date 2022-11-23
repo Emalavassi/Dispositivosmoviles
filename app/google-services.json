@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "562289126430",
+    "project_id": "dispositivosmoviles-eeae8",
+    "storage_bucket": "dispositivosmoviles-eeae8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562289126430:android:63e6fbc04165e33760920f",
+        "android_client_info": {
+          "package_name": "com.dispositivosmoviles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562289126430-3red23kk2d08j7vjuiq0krln9tunprfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLwQP0HJGnLexRyiXXGXlUA3j-Jtvrd6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562289126430-3red23kk2d08j7vjuiq0krln9tunprfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562289126430:android:e759297c4e3fc59760920f",
+        "android_client_info": {
+          "package_name": "dispositivos.moviles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562289126430-3red23kk2d08j7vjuiq0krln9tunprfk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLwQP0HJGnLexRyiXXGXlUA3j-Jtvrd6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562289126430-3red23kk2d08j7vjuiq0krln9tunprfk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
