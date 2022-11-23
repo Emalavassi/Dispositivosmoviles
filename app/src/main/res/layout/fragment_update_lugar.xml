@@ -47,7 +47,7 @@
         android:text="@string/bt_update_lugar" />
 
     <Button
-        android:id="@+id/br_borrar_lugar"
+        android:id="@+id/btn_borrar_lugar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Borrar Lugar" />
