@@ -1,22 +1,16 @@
 package com.dispositivosmoviles.model
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName="lugar")
 data class Lugar(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    @ColumnInfo(name="nombre")
+    var id: String,
     val nombre: String,
-    @ColumnInfo(name="correo")
     val correo: String?,
-    @ColumnInfo(name="web")
     val web: String?,
-    @ColumnInfo(name="telefono")
     val telefono: String?
-) : Parcelable
+) : Parcelable{
+    constructor():
+            this("","","","","")
+}

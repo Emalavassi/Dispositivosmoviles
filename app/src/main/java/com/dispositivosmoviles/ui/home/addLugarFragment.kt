@@ -49,7 +49,7 @@ class addLugarFragment : Fragment() {
 
 
         if (nombre.isNotEmpty()) {   //Al menos tenemos un nombre
-            val lugar = Lugar(0,nombre,correo,web,telefono)
+            val lugar = Lugar("",nombre,correo,web,telefono)
             lugarViewModel.saveLugar(lugar)
             Toast.makeText(requireContext(),getString(R.string.msg_lugar_added),
                 Toast.LENGTH_SHORT).show()

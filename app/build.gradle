@@ -59,9 +59,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Para poder utilizar las anotaciones @Entity @Dao @Database
-    annotationProcessor 'androidx.room:room-compiler:2.4.3'
-    kapt 'androidx.room:room-compiler:2.4.3'
-    implementation 'androidx.room:room-ktx:2.4.3'
+    //annotationProcessor 'androidx.room:room-compiler:2.4.3'
+   // kapt 'androidx.room:room-compiler:2.4.3'
+   // implementation 'androidx.room:room-ktx:2.4.3'
+    //Firebase db
+    implementation"com.google.firebase:firebase-firestore-ktx"
 
     //Navegacion entre los fragmentos
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'

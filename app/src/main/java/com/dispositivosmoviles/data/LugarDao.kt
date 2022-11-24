@@ -1,26 +1,80 @@
 package com.dispositivosmoviles.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.lifecycle.MutableLiveData
 import com.dispositivosmoviles.model.Lugar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.ktx.Firebase
 
-@Dao
-interface LugarDao {
+
+class LugarDao {
+
+    private var codigoUsuario: String
+    private var firestore: FirebaseFirestore
+
+    init{
+        val usuario = Firebase.auth.currentUser?.email
+        codigoUsuario = "$usuario"
+        firestore = FirebaseFirestore.getInstance()
+        firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+    }
+
     //CRUD Create Read Update Delete
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addLugar(lugar: Lugar)
+    fun saveLugar(lugar: Lugar){
+    val document: DocumentReference
+    if(lugar.id.isEmpty()){
+        //Agregar
+        document = firestore.collection("lugaresMiercoles").document(codigoUsuario).collection("misLugares").
+        document()
+        lugar.id = document.id
 
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun updateLugar(lugar: Lugar)
+    }else{
+        //Modificar
+        document = firestore.collection("lugaresMiercoles").document(codigoUsuario).collection("misLugares").
+        document(lugar.id)
 
-    @Delete
-    suspend fun deleteLugar(lugar: Lugar)
+    }
+        document.set(lugar)
+            .addOnCompleteListener{
+                Log.d("SaveLugar","Guardado con exito")
+            }
+            .addOnCanceledListener {
+                Log.e("SaveLugar","Error al guardar")
+            }
+    }
 
-    @Query("SELECT * FROM LUGAR")
-    fun getLugares() : LiveData<List<Lugar>>
+    fun deleteLugar(lugar: Lugar){
+        if(lugar.id.isNotEmpty()){
+            firestore.collection("lugaresMiercoles").document(codigoUsuario).collection("misLugares").document(lugar.id)
+                .delete()
+                .addOnSuccessListener { Log.d("DeleteLugar", "Borrado con exito") }
+                .addOnFailureListener { e -> Log.w("DeleteLugar", "Error borrando documento", e) }
+        }
+
+    }
+
+    fun getLugares() : MutableLiveData<List<Lugar>>{
+        val listaLugares = MutableLiveData<List<Lugar>>()
+        firestore.collection("lugaresMiercoles").document(codigoUsuario).collection("misLugares").addSnapshotListener {snapshot, e->
+            if(e != null){
+                return@addSnapshotListener
+            }
+            if(snapshot != null){
+                val lista = ArrayList<Lugar>()
+                val lugares = snapshot.documents
+                lugares.forEach{
+                    val lugar = it.toObject(Lugar ::class.java)
+                    if(lugar != null){
+                        lista.add(lugar)
+                    }
+                }
+                listaLugares.value = lista
+            }
+        }
+        return listaLugares
+    }
 }
