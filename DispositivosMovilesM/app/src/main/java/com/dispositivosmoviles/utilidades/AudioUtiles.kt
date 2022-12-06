@@ -1,11 +1,9 @@
 package com.dispositivosmoviles.utilidades
 
 import android.Manifest
-import android.Manifest.permission.RECORD_AUDIO
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.media.Image
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.widget.ImageButton
@@ -13,21 +11,19 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dispositivosmoviles.R
-import com.google.android.gms.common.internal.FallbackServiceBroker
 import java.io.File
 import java.io.IOException
 
-class AudioUtiles (
-
+class AudioUtiles(
     private val actividad: Activity,
     private val contexto: Context,
-    private val btAccion:ImageButton,
+    private val btAccion: ImageButton,
     private val btPlay: ImageButton,
     private val btDelete: ImageButton,
     private val msgInicioNotaAudio:String,
     private val msgDetieneNotaAudio:String
-        ) {
-    init{
+    ) {
+    init {
         btAccion.setOnClickListener { grabaDetiene() }
         btPlay.setOnClickListener { reproducirNota() }
         btDelete.setOnClickListener { borrarNota() }
@@ -35,6 +31,7 @@ class AudioUtiles (
         btPlay.isEnabled = false
         btDelete.isEnabled = false
     }
+
     private var mediaRecorder: MediaRecorder? = null
     private var grabando = false
     var audioFile: File = File.createTempFile("audio_",".mp3")
@@ -51,7 +48,7 @@ class AudioUtiles (
         mediaRecorder!!.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
         mediaRecorder!!.setOutputFile(audioFile)
     }
-    private  fun iniciaGrabacion(){
+    private fun iniciaGrabacion(){
         try{
             mediaRecorder?.prepare()
             mediaRecorder?.start()
@@ -59,21 +56,22 @@ class AudioUtiles (
             btAccion.setImageResource(R.drawable.ic_stop)
             btPlay.isEnabled = false
             btDelete.isEnabled = false
-        }catch (e:IllegalStateException){
+        }
+        catch (e:java.lang.IllegalStateException){
+            e.printStackTrace()
+        }
+        catch (e: IOException){
             e.printStackTrace()
         }
 
     }
-
-    private fun detenerNota(){
-
+    private  fun detenerNota(){
         btPlay.isEnabled = true
         btDelete.isEnabled = true
         mediaRecorder?.stop()
         mediaRecorder?.release()
-        Toast.makeText(contexto,msgDetieneNotaAudio,Toast.LENGTH_LONG).show()
-        btAccion.setImageResource(R.drawable.ic_stop)
-
+        Toast.makeText(contexto, msgDetieneNotaAudio, Toast.LENGTH_LONG).show()
+        btAccion.setImageResource(R.drawable.ic_mic)
     }
 
     private fun grabaDetiene(){
@@ -96,29 +94,30 @@ class AudioUtiles (
         }
 
     }
-    private fun borrarNota() {
-        try {
-            if (audioFile.exists()) {
-                audioFile.delete()
-            }
-        }catch (e: IOException){
-            e.printStackTrace()
-        }
-    }
-
-    private fun reproducirNota() {
-        try {
+    private fun reproducirNota(){
+        try{
             if(audioFile.exists() && audioFile.canRead()){
                 val mediaPlayer = MediaPlayer()
                 mediaPlayer.setDataSource(audioFile.path)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
             }
-        }catch (e: IOException){
+        }
+        catch (e: IOException){
             e.printStackTrace()
         }
 
     }
-
-
+    private fun borrarNota(){
+        try{
+            if(audioFile.exists()){
+                audioFile.delete()
+                btPlay.isEnabled = false
+                btDelete.isEnabled = false
+            }
+        }
+        catch (e: IOException){
+            e.printStackTrace()
+        }
+    }
 }
